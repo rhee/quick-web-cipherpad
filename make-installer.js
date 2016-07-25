@@ -4,7 +4,7 @@ var fs = require('fs'),
     script_file = process.argv[3],
     output_file = process.argv[4];
 
-heredoc(function(){
+heredoc(function() {
     /*{{{
 
 What is the maximum length of a URL in different browsers?
@@ -31,7 +31,7 @@ any combination of client and server software.
     }}}*/
 });
 
-var installer_template = heredoc(function(){
+var installer_template = heredoc(function() {
     /*{{{
 <body>
 drag this to your bookmark toolbar ({{bytes}} bytes) =&gt; <a href="{{uri}}">memo</a>
@@ -40,27 +40,27 @@ drag this to your bookmark toolbar ({{bytes}} bytes) =&gt; <a href="{{uri}}">mem
 })
 
 function make_installer(html) {
-  var uri = 'data:text/html, '+
-	  encodeURIComponent(html).replace(/%2C/g, ',').replace(/%20/, '+'),
-      bytes = uri.length,
-      html = installer_template.replace(/{{bytes}}/, ''+bytes).replace(/{{uri}}/, uri);
-  return html;
+    var uri = 'data:text/html, ' +
+        encodeURIComponent(html).replace(/%2C/g, ',').replace(/%20/, '+'),
+        bytes = uri.length,
+        html = installer_template.replace(/{{bytes}}/, '' + bytes).replace(/{{uri}}/, uri);
+    return html;
 }
 
 function make_html(html_template, script) {
-    return html_template.replace(/{{script}}/, script)
+    return html_template.replace(new RegExp('<script src="bundled_.js"></script>'), '<script>'+script+'</script>')
 }
 
-fs.readFile(html_file, 'utf8', function (err, data) {
+fs.readFile(html_file, 'utf8', function(err, data) {
     if (err) return console.error(err);
     var html_template = data;
-    fs.readFile(script_file, 'utf8', function (err, data) {
-	if (err) return console.error(err);
-	var script = data;
-	var html = make_html(html_template, script);
-	var installer_html = make_installer(html);
-        fs.writeFile(output_file, installer_html, function (err,data) {
-	    if (err) return console.error(err);
+    fs.readFile(script_file, 'utf8', function(err, data) {
+        if (err) return console.error(err);
+        var script = data;
+        var html = make_html(html_template, script);
+        var installer_html = make_installer(html);
+        fs.writeFile(output_file, installer_html, function(err, data) {
+            if (err) return console.error(err);
         })
     });
 });

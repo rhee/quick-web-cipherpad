@@ -1,8 +1,17 @@
 #!/bin/sh -e
 
 # install required modules
+npm install --only=dev
 npm install
 #npm update --save
+
+PATH=$PWD/node_modules/.bin:$PATH
+export PATH
+
+set -x
+
+# htmlminify
+htmlminify -o minified_.html uncompressed.html
 
 # browserify
 browserify main.js > bundled_.js
@@ -17,4 +26,4 @@ curl -s \
     http://closure-compiler.appspot.com/compile < bundled_.js > minified_.js
 
 # make installer html
-node make-installer.js html-template.html minified_.js installer.html
+node make-installer.js minified_.html minified_.js installer.html
