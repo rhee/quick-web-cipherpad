@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
     /** @constant */
     var debug = false;
@@ -7,11 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
     var sha256 = require('js-sha256').sha256;
     var heredoc = require('kmkr-heredoc');
 
-    //var editbox = document.getElementById('editbox');
-    //var elem;
-
     function fil(f) {
-        return function() {
+        return function () {
             this.innerText = f(this.innerText);
         }
     }
@@ -31,32 +28,59 @@ document.addEventListener('DOMContentLoaded', function() {
             b[3];
     }
 
-    function prompt_password(label, hint, callback) {
-        //         var overlay = document.createElement('div'),
-        //             input;
-        //         overlay.className = 'overlay';
-        //         overlay.innerHTML = heredoc(function() {
-        //             /** @preserve {{{
-        // <div class="popup">
-        //     <a class="close" href="#">×</a>
-        //     <label>Password: <input name="password" type="password" size="25"/></label>
-        // </div>
-        // }}} */
-        //         })
-        //         overlay.style.visibility = 'visible';
-        //         overlay.style.opacity = '1.0';
-        //         if (callback) {
-        //             input = document.querySelector('#password').textContent;
-        //             callback(input)
-        //         }
+    function prompt_password_0(label, hint, callback) {
         var password = prompt(label, hint);
         if (callback) {
             callback(password);
         }
     }
 
+    function prompt_password(label, hint, callback) {
+        var overlay = document.createElement('div'),
+            input,
+            onsubmit;
+        overlay.className = 'overlay';
+        overlay.innerHTML = heredoc(function () {
+            /** @preserve {{{
+<div class="popup">
+<table border="0" style="width:100%">
+<tr>
+<td width="1">
+Password:
+</td>
+<td width="*">
+<input name="password" type="password" size="25" style="width:100%"/>
+</td>
+<td width="1">
+<input name="submit" type="button" value="OK"/>
+</td>
+</tr>
+</table>
+</div>
+}}} */
+        });
+        overlay.style.visibility = 'visible';
+        overlay.style.opacity = '1.0';
+        document.body.appendChild(overlay);
+        console.log('overlay: ', overlay);
+        input = overlay.querySelector('input[name="password"]');
+        submit = overlay.querySelector('input[name="submit"]');
+        onsubmit = function (e) {
+            document.body.removeChild(overlay);
+            if (callback) {
+                password = input.value;
+                callback(password)
+            }
+        };
+        input.addEventListener('keydown', function (e) {
+            if (event.keyCode == 13) { /* enter key */
+                onsubmit(e);
+            }
+        });
+        submit.addEventListener('click', onsubmit);
+    }
+
     function password_to_key(key_text, salt) {
-        //return aesjs.util.convertStringToBytes(key_text.repeat(16).substring(0, 16));
         //return aesjs.util.convertStringToBytes(pbkdf2.pbkdf2Sync(key_text, 'qwnpot', 5, 16, 'sha512'));
         salt = salt || new Date() & 0xffffffff;
         return [salt, aesjs.util.convertStringToBytes(sha256(key_text + salt).substring(0, 16))];
@@ -80,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         inputBytes = aesjs.util.convertStringToBytes(txt);
 
-        prompt_password('Enter key:', 'key text here', function(pass) {
+        prompt_password('Enter key:', 'key text here', function (pass) {
 
             if (!pass) {
                 console.warn('encrypt: no password');
@@ -130,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         ctr = buffer_to_int32(inputBytes.slice(0, 4));
 
-        prompt_password('Enter key:', 'key text here', function(pass) {
+        prompt_password('Enter key:', 'key text here', function (pass) {
 
             if (!pass) {
                 console.warn('decrypt: no password');
@@ -157,8 +181,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     Array.prototype.map.call(
         document.getElementsByClassName('conv'),
-        function(e) {
-            e.addEventListener('click', function() {
+        function (e) {
+            e.addEventListener('click', function () {
                 var elem = document.getElementById('editbox'),
                     expr = e.getAttribute('exec'),
                     wbrk = e.getAttribute('wbrk');
@@ -184,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.decrypt = decrypt;
 
     if (!debug) {
-        window.onbeforeunload = function() {
+        window.onbeforeunload = function () {
             return 'Sure you want to close this?'
         }
     }
