@@ -32,22 +32,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function prompt_password(label, hint, callback) {
-        var overlay = document.createElement('div'),
-            input;
-        overlay.className = 'overlay';
-        overlay.innerHTML = heredoc(function() {
-            /** @preserve {{{
-<div class="popup">
-    <a class="close" href="#">×</a>
-    <label>Password: <input name="password" type="password" size="25"/></label>
-</div>
-}}} */
-        })
-        overlay.style.visibility = 'visible';
-        overlay.style.opacity = '1.0';
+        //         var overlay = document.createElement('div'),
+        //             input;
+        //         overlay.className = 'overlay';
+        //         overlay.innerHTML = heredoc(function() {
+        //             /** @preserve {{{
+        // <div class="popup">
+        //     <a class="close" href="#">×</a>
+        //     <label>Password: <input name="password" type="password" size="25"/></label>
+        // </div>
+        // }}} */
+        //         })
+        //         overlay.style.visibility = 'visible';
+        //         overlay.style.opacity = '1.0';
+        //         if (callback) {
+        //             input = document.querySelector('#password').textContent;
+        //             callback(input)
+        //         }
+        var password = prompt(label, hint);
         if (callback) {
-            input = document.querySelector('#password').textContent;
-            callback(input)
+            callback(password);
         }
     }
 
