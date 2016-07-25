@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    'use strit';
 
     /** @constant */
     var debug = false;
@@ -27,13 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
             b[2] * 256 +
             b[3];
     }
-
-    /* function prompt_password_0(label, hint, callback) {
-        var password = prompt(label, hint);
-        if (callback) {
-            callback(password);
-        }
-    } */
 
     function prompt_password(label, hint, callback) {
         var overlay = document.createElement('div'),
@@ -203,9 +197,11 @@ Password:
             })
         });
 
-    window.fil = fil;
-    window.encrypt = encrypt;
-    window.decrypt = decrypt;
+    // Note: To prevent closure-compiler mangling the name,
+    // window['name'] = name, instead of window.name = name
+    window['fil'] = fil;
+    window['encrypt'] = encrypt;
+    window['decrypt'] = decrypt;
 
     if (!debug) {
         window.onbeforeunload = function () {
