@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     'use strict';
 
     /** @constant */
-    var debug = true;
+    var debug = false;
 
     var aesjs = require('aes-js');
     var sha256 = require('js-sha256').sha256;
