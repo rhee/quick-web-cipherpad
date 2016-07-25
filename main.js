@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('         bytes: ', decryptedBytes);
             }
 
-            element.textContent = aesjs.util.convertBytesToString(decryptedBytes)
+            elem.textContent = aesjs.util.convertBytesToString(decryptedBytes)
 
         });
 
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         elem.style.wordBreak = 'break-all';
                     }
                 } else {
-                    elem.style.wordBreak = wordbreak;
+                    elem.style.wordBreak = wbrk;
                 }
             })
         });
