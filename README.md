@@ -14,19 +14,17 @@ Simple notepad script for modern web browsers
 
 ## Make a Bookmarklet
 
-1. Open "copy-this-to-your-bookmark-bar.txt" and copy the contents to clipboard
-2. Create a bookmark for current page.
-3. Edit the new bookmark and then paste clipboard into the url field.
-
-You can easily get the html code for the page (`self` button),
-and then encode it base64 (`b64enc` button),
-and then prepend 'data:text/html;base64,' to make new bookmarklet for your edited html source.
+1. Open `install.html` using your favorite browser.
+    - drag install.html to your browser if your desktop environment support file drag
+    - type `file://<absolute-path-to install.html>` in your browser's url bar
+2. Find link named `memo` and drag that link to your browser's bookmark bar 
 
 Click the new created bookmark to open a simple notepad, without requesting any Internet connection.
 
 ## Test
 
-If you want to test html from github source directly, click [here](https://rawgit.com/rhee/quick-web-notepad/master/uncompressed.html)
+If you want to test html from github source directly, open  [this link](https://rawgit.com/rhee/quick-web-cipherpad/master/install.html) and then drag the link
+to your bookmark bar
 
 # Note
 
