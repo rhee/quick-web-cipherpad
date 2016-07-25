@@ -1,8 +1,8 @@
 #!/bin/sh -e
 
 # install required modules
-npm install --only=dev
-npm install
+npm install --only=dev --save
+npm install --only=prod --save
 #npm update --save
 
 PATH=$PWD/node_modules/.bin:$PATH

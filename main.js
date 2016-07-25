@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-    'use strit';
+    'use strict';
 
     /** @constant */
-    var debug = false;
+    var debug = true;
 
     var aesjs = require('aes-js');
     var sha256 = require('js-sha256').sha256;
@@ -31,11 +31,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function prompt_password(label, hint, callback) {
         var overlay = document.createElement('div'),
+            template,
             input,
+            submit,
             onsubmit;
-        overlay.className = 'overlay';
-        overlay.innerHTML = heredoc(function () {
-            /** @preserve {{{
+
+/*
+{{{
 <div class="popup">
 <table border="0" style="width:100%">
 <tr>
@@ -51,15 +53,30 @@ Password:
 </tr>
 </table>
 </div>
-}}} */
-        });
+}}}
+*/
+
+        template = '<div class="popup"> <table border="0" style="width:100%"> <tr> <td width="1"> Password: </td> <td width="*"> <input name="password" type="password" size="25" style="width:100%"/> </td> <td width="1"> <input name="submit" type="button" value="OK"/> </td> </tr> </table> </div>';
+
+        if (debug) {
+            console.log('overlay template: ');
+            console.log(template);
+        }
+
+        overlay.className = 'overlay';
+        overlay.innerHTML = template;
         overlay.style.visibility = 'visible';
         overlay.style.opacity = '1.0';
+
         document.body.appendChild(overlay);
-        console.log('overlay: ', overlay);
+
         input = overlay.querySelector('input[name="password"]');
         submit = overlay.querySelector('input[name="submit"]');
+
+        input.focus();
+
         onsubmit = function (e) {
+            var password;
             document.body.removeChild(overlay);
             if (callback) {
                 password = input.value;
@@ -111,7 +128,7 @@ Password:
             encryptedBytes = Buffer.concat([int32_to_buffer(ctr), aesCtr.encrypt(inputBytes)]);
 
             if (debug) {
-                console.log('encrypt:');
+                console.log('encrypt: ');
                 console.log('    inputBytes: ', inputBytes);
                 console.log('           ctr: ', ctr, int32_to_buffer(ctr));
                 console.log('           key: ', key_hint[1]);
@@ -160,7 +177,7 @@ Password:
             decryptedBytes = aesCtr.decrypt(inputBytes.slice(4));
 
             if (debug) {
-                console.log('decrypt:');
+                console.log('decrypt: ');
                 console.log('    inputBytes: ', inputBytes);
                 console.log('           ctr: ', ctr, int32_to_buffer(ctr));
                 console.log('           key: ', key_hint[1]);
@@ -179,7 +196,8 @@ Password:
             e.addEventListener('click', function () {
                 var elem = document.getElementById('editbox'),
                     expr = e.getAttribute('exec'),
-                    wbrk = e.getAttribute('wbrk');
+                    wbrk = e.getAttribute('wbrk'),
+                    fun;
                 if (expr) {
                     fun = eval(expr);
                     fun.call(elem);

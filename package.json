@@ -4,9 +4,8 @@
   "description": "Simple notepad script for modern web browsers with cipher functions",
   "main": "main.js",
   "dependencies": {
-    "aes-js": "*",
-    "js-sha256": "^0.3.0",
-    "kmkr-heredoc": "git+https://github.com/rhee/kmkr-heredoc.git"
+    "aes-js": "^2.0.0",
+    "js-sha256": "^0.3.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -27,6 +26,7 @@
   },
   "homepage": "https://github.com/rhee/quick-web-cipherpad#readme",
   "devDependencies": {
+    "kmkr-heredoc": "git+https://github.com/rhee/kmkr-heredoc.git",
     "browserify": "^13.0.1",
     "html-minify": "^0.3.2"
   },
