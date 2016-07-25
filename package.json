@@ -26,6 +26,6 @@
   },
   "homepage": "https://github.com/rhee/quick-web-cipherpad#readme",
   "devDependencies": {
-    "pbkdf2": "^3.0.4"
+    "browserify": "^13.0.1"
   }
 }
