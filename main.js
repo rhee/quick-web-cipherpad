@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var aesjs = require('aes-js');
     var sha256 = require('js-sha256').sha256;
-    var heredoc = require('kmkr-heredoc');
+    //var heredoc = require('kmkr-heredoc');
 
     function fil(f) {
         return function () {
@@ -15,9 +15,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function int32_to_buffer(n) {
-        return new Buffer([n / 256 / 256 / 256,
-            n / 256 / 256 & 0xff,
-            n / 256 & 0xff,
+        return new Buffer([n >> 24,
+            n >> 16 & 0xff,
+            n >> 8 & 0xff,
             n & 0xff
         ]);
     }
@@ -56,7 +56,7 @@ Password:
 }}}
 */
 
-        template = '<div class="popup"> <table border="0" style="width:100%"> <tr> <td width="1"> Password: </td> <td width="*"> <input name="password" type="password" size="25" style="width:100%"/> </td> <td width="1"> <input name="submit" type="button" value="OK"/> </td> </tr> </table> </div>';
+        template = '<div class="popup"><table border="0" style="width:100%"><tr><td width="1">' + label + '</td><td width="*"><input name="password" type="password" size="25" style="width:100%" hint="' + hint +'"/></td><td width="1"><input name="submit" type="button" value="OK"/></td></tr></table></div>';
 
         if (debug) {
             console.log('overlay template: ');
@@ -65,8 +65,6 @@ Password:
 
         overlay.className = 'overlay';
         overlay.innerHTML = template;
-        overlay.style.visibility = 'visible';
-        overlay.style.opacity = '1.0';
 
         document.body.appendChild(overlay);
 
