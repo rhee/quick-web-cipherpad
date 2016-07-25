@@ -1,0 +1,31 @@
+{
+  "name": "quick-web-cipherpad",
+  "version": "1.0.0",
+  "description": "Simple notepad script for modern web browsers with cipher functions",
+  "main": "main.js",
+  "dependencies": {
+    "aes-js": "*",
+    "js-sha256": "^0.3.0",
+    "kmkr-heredoc": "git+https://github.com/rhee/kmkr-heredoc.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bundle": "browserify main.js > bundled_.js",
+    "uglify": "browserify main.js | uglifyjs - -c sequences=true,dead_code=true,conditionals=true,booleans=true,unused=true,if_return=true,join_vars=true,drop_console=true -o uglified_.js",
+    "minify": "browserify main.js | curl -s -d compilation_level=ADVANCED_OPTIMIZATIONS -d output_format=text -d output_info=compiled_code -d charset=utf-8 --data-urlencode 'js_code@-' http://closure-compiler.appspot.com/compile > minified_.js",
+    "build": "./build.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhee/quick-web-cipherpad.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rhee/quick-web-cipherpad/issues"
+  },
+  "homepage": "https://github.com/rhee/quick-web-cipherpad#readme",
+  "devDependencies": {
+    "pbkdf2": "^3.0.4"
+  }
+}
