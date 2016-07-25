@@ -28,12 +28,12 @@ document.addEventListener('DOMContentLoaded', function () {
             b[3];
     }
 
-    function prompt_password_0(label, hint, callback) {
+    /* function prompt_password_0(label, hint, callback) {
         var password = prompt(label, hint);
         if (callback) {
             callback(password);
         }
-    }
+    } */
 
     function prompt_password(label, hint, callback) {
         var overlay = document.createElement('div'),
