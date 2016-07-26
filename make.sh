@@ -1,9 +1,8 @@
 #!/bin/sh -e
 
-# install required modules
-npm install --only=dev --save
-npm install --only=prod --save
-#npm update --save
+# # install required modules
+# npm install --save-dev --only=dev
+# npm install --save --only=prod
 
 PATH=$PWD/node_modules/.bin:$PATH
 export PATH
@@ -11,19 +10,19 @@ export PATH
 set -x
 
 # htmlminify
-htmlminify -o minified_.html uncompressed.html
-
-# browserify
-browserify main.js > bundled_.js
+htmlminify uncompressed.html -o minified_.html
 
 # minify using closure compiler api
+# NOTE: js source order is obeyed
 curl -s \
     -d compilation_level=ADVANCED_OPTIMIZATIONS \
     -d output_format=text \
     -d output_info=compiled_code \
     -d charset=utf-8 \
-    --data-urlencode 'js_code@-' \
-    http://closure-compiler.appspot.com/compile < bundled_.js > minified_.js
+    --data-urlencode 'js_code@js-sha256.js' \
+    --data-urlencode 'js_code@aes-js.js' \
+    --data-urlencode 'js_code@main.js' \
+    http://closure-compiler.appspot.com/compile > minified_.js
 
 # make installer html
 node make-installer.js minified_.html minified_.js installer.html

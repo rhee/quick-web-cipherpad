@@ -3,32 +3,26 @@
   "version": "1.0.0",
   "description": "Simple notepad script for modern web browsers with cipher functions",
   "main": "main.js",
-  "dependencies": {
-    "aes-js": "^2.0.0",
-    "js-sha256": "^0.3.0"
-  },
+  "dependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "htmlminify": "htmlminify -o minified_.html uncompressed.html",
-    "bundle": "browserify main.js > bundled_.js",
-    "uglify": "uglifyjs - -c sequences=true,dead_code=true,conditionals=true,booleans=true,unused=true,if_return=true,join_vars=true,drop_console=true -o uglified_.js < bundled_.js",
-    "minify": "curl -s -d compilation_level=ADVANCED_OPTIMIZATIONS -d output_format=text -d output_info=compiled_code -d charset=utf-8 --data-urlencode 'js_code@-' http://closure-compiler.appspot.com/compile < bundled_.js > minified_.js",
-    "make": "npm run htmlminify && npm run bundle && npm run minify && node make-installer.js minified_.html minified_.js installer.html"
+    "make": "sh make.sh"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rhee/quick-web-cipherpad.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Sang-Hoon RHEE <https://github.com/rhee/>",
+  "license": "MIT License",
   "bugs": {
     "url": "https://github.com/rhee/quick-web-cipherpad/issues"
   },
   "homepage": "https://github.com/rhee/quick-web-cipherpad#readme",
   "devDependencies": {
-    "kmkr-heredoc": "git+https://github.com/rhee/kmkr-heredoc.git",
-    "browserify": "^13.0.1",
-    "html-minify": "^0.3.2"
+    "aes-js": "^2.0.0",
+    "btoa": "^1.1.2",
+    "html-minify": "^0.3.2",
+    "js-sha256": "^0.3.0"
   },
   "keywords": []
 }
