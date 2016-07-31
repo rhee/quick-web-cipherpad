@@ -695,7 +695,7 @@
         root.aesjs = aesjs;
     }
 
-    // added for direct closure-compiler input
+    // added for direct, in-lined closure-compiler input
     window['aesjs'] = aesjs;
 
 })(this);

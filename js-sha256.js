@@ -227,7 +227,7 @@
     root.sha224 = sha224;
   }
 
-  // added for direct closure-compiler input
+  // added for direct, in-lined closure-compiler input
   window['sha256'] = sha256;
 
 }(this));

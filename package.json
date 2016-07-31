@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/rhee/quick-web-cipherpad#readme",
   "devDependencies": {
+    "kmkr-heredoc": "git+https://github.com/rhee/kmkr-heredoc.git",
     "aes-js": "^2.0.0",
     "btoa": "^1.1.2",
     "html-minify": "^0.3.2",

@@ -1,6 +1,5 @@
-"use strict";
-
-document.addEventListener('DOMContentLoaded', function () {
+(function () {
+    "use strict";
 
     /** @const */ var debug = false;
 
@@ -224,4 +223,4 @@ Password:
         }
     }
 
-})
+})()
