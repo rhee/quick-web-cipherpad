@@ -23,8 +23,8 @@ Click the new created bookmark to open a simple notepad, without requesting any 
 
 ## Test
 
-If you want to test html from github source directly, open  [this link](https://raw.githubusercontent.com/rhee/quick-web-cipherpad/master/installer.html) and then drag the link
-to your bookmark bar
+~If you want to test html from github source directly, open  <a href="https://raw.githubusercontent.com/rhee/quick-web-cipherpad/master/installer.html" type="text/html" target="_">this link</a> and then drag the link
+to your bookmark bar~
 
 # Note
 
